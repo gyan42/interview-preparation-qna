@@ -1,0 +1,11 @@
+# Mobile/Edge Papers
+
+## Segmentation
+- [YolactEdge](https://paperswithcode.com/paper/yolactedge-real-time-instance-segmentation-on): Real-time Instance Segmentation on the Edge (Jetson AGX Xavier: 30 FPS, RTX 2080 Ti: 170 FPS) (paper & code) - YolactEdge is an approach leveraging useful techniques (like quantizing network parameters and partial feature transformation) that aims to reduce compute for real-time instance segmentation on small edge devices.
+
+## Federated FW
+- [Flower: A Friendly Federated Learning Research Framework](https://paperswithcode.com/paper/flower-a-friendly-federated-learning-research)
+Federated Learning (FL) has emerged as a promising technique for edge devices to collaboratively learn a shared prediction model, while keeping their training data on the device, thereby decoupling the ability to do machine learning from the need to store the data in the cloud. However, FL is difficult to implement and deploy in practice, considering the heterogeneity in mobile devices, e.g., 
+  different programming languages, frameworks, and hardware accelerators. Although there are a few frameworks available to simulate FL algorithms (e.g., TensorFlow Federated), they do not support implementing FL workloads on mobile devices. Furthermore, these frameworks are designed to simulate FL in a server environment and hence do not allow experimentation in distributed mobile settings for a large number of clients. In this paper, 
+  we present Flower (https://flower.dev/), a FL framework which is both agnostic towards heterogeneous client environments and also scales to a large number of clients, including mobile and embedded devices. Flower's abstractions let developers port existing mobile workloads with little overhead, regardless of the programming language or ML framework used, while also allowing researchers flexibility to experiment with novel approaches 
+  to advance the state-of-the-art. We describe the design goals and implementation considerations of Flower and show our experiences in evaluating the performance of FL across clients with heterogeneous computational and communication capabilities. (show less)
