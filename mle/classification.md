@@ -14,3 +14,6 @@
   Metric: we want to minimize the negative log likelihood on the held-out set. This leads to a minimal divergence 
   between the predicted fraud probability distribution with the true distribution.
   ```
+  
+- https://www.analyticsvidhya.com/blog/2020/06/auc-roc-curve-machine-learning/
+- https://medium.com/usf-msds/choosing-the-right-metric-for-evaluating-machine-learning-models-part-2-86d5649a5428

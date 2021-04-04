@@ -68,3 +68,4 @@
 
 # Q> How do you design a system for text auto completion? (something similar to Google auto complete) ?
   - https://towardsdatascience.com/implementing-auto-complete-with-postgres-and-python-e03d34824079
+- http://www.benstopford.com/2015/04/28/elements-of-scale-composing-and-scaling-data-platforms/

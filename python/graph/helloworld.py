@@ -1,75 +1,81 @@
-"""
-A Python program to demonstrate the adjacency
-list representation of the graph
-"""
+class Vertex:
+    def __init__(self, node):
+        self.id = node
+        self.adjacent = {}
 
+    def __str__(self):
+        return str(self.id) + ' adjacent: ' + str([x.id for x in self.adjacent])
 
-# A class to represent the adjacency list of the node
-class AdjNode:
-    def __init__(self, data):
-        self.vertex = data
-        self.next = None
+    def add_neighbor(self, neighbor, weight=0):
+        self.adjacent[neighbor] = weight
 
+    def get_connections(self):
+        return self.adjacent.keys()  
 
-# A class to represent a graph. A graph
-# is the list of the adjacency lists.
-# Size of the array will be the no. of the
-# vertices "V"
+    def get_id(self):
+        return self.id
+
+    def get_weight(self, neighbor):
+        return self.adjacent[neighbor]
+
 class Graph:
-    def __init__(self, num_vertices):
-        self.num_vertices = num_vertices
-        self.graph_list = [None] * self.num_vertices
+    def __init__(self):
+        self.vert_dict = {}
+        self.num_vertices = 0
 
-    # Function to add an edge in an undirected graph
-    def add_edge(self, src, dest):
-        # Adding the node to the source node
-        node = AdjNode(dest)
-        node.next = self.graph_list[src]
-        self.graph_list[src] = node
+    def __iter__(self):
+        return iter(self.vert_dict.values())
 
-        # Adding the source node to the destination as
-        # it is the undirected graph
-        node = AdjNode(src)
-        node.next = self.graph_list[dest]
-        self.graph_list[dest] = node
+    def add_vertex(self, node):
+        self.num_vertices = self.num_vertices + 1
+        new_vertex = Vertex(node)
+        self.vert_dict[node] = new_vertex
+        return new_vertex
 
-    # Function to print the graph
-    def print_graph(self):
-        print("Adjacency list of vertex")
-        for i in range(self.num_vertices):
-            print("node({})".format(i, i), end="")
-            temp = self.graph_list[i]
-            while temp:
-                print(" -> {}".format(temp.vertex), end="")
-                temp = temp.next
-            print(" \n")
+    def get_vertex(self, n):
+        if n in self.vert_dict:
+            return self.vert_dict[n]
+        else:
+            return None
 
+    def add_edge(self, frm, to, cost=0):
+        if frm not in self.vert_dict:
+            self.add_vertex(frm)
+        if to not in self.vert_dict:
+            self.add_vertex(to)
 
-        # Driver program to the above graph class
-if __name__ == "__main__":
-    graph = Graph(num_vertices=5)
-    graph.add_edge(0, 1)
-    graph.add_edge(0, 4)
+        self.vert_dict[frm].add_neighbor(self.vert_dict[to], cost)
+        self.vert_dict[to].add_neighbor(self.vert_dict[frm], cost)
 
-    graph.add_edge(1, 2)
-    graph.add_edge(1, 3)
-    graph.add_edge(1, 4)
+    def get_vertices(self):
+        return self.vert_dict.keys()
 
-    graph.add_edge(2, 3)
+if __name__ == '__main__':
 
-    graph.add_edge(3, 4)
+    g = Graph()
 
-    graph.print_graph()
+    g.add_vertex('a')
+    g.add_vertex('b')
+    g.add_vertex('c')
+    g.add_vertex('d')
+    g.add_vertex('e')
+    g.add_vertex('f')
 
-"""
-Adjacency list of vertex
-node(0) -> 4 -> 1 
+    g.add_edge('a', 'b', 7)  
+    g.add_edge('a', 'c', 9)
+    g.add_edge('a', 'f', 14)
+    g.add_edge('b', 'c', 10)
+    g.add_edge('b', 'd', 15)
+    g.add_edge('c', 'd', 11)
+    g.add_edge('c', 'f', 2)
+    g.add_edge('d', 'e', 6)
+    g.add_edge('e', 'f', 9)
 
-node(1) -> 4 -> 3 -> 2 -> 0 
+    for v in g:
+        for w in v.get_connections():
+            vid = v.get_id()
+            wid = w.get_id()
+            print(f'( {vid} , {wid}, {v.get_weight(w)})')
 
-node(2) -> 3 -> 1 
-
-node(3) -> 4 -> 2 -> 1 
-
-node(4) -> 3 -> 1 -> 0 
-"""
+    for v in g:
+        print('g.vert_dict[%s]=%s' %(v.get_id(), g.vert_dict[v.get_id()]))

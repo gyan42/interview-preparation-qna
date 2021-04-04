@@ -28,3 +28,43 @@ https://bohemian.ai/blog/text-ant-annotation-in-nlp
 
 # Flask and Flaskrestplus
 - https://towardsdatascience.com/working-with-apis-using-flask-flask-restplus-and-swagger-ui-7cf447deda7f
+
+
+
+While dealing with #ML / #DL, we often come across Liner and Non-linear concept. 
+Here is my summarization...
+
+Linear Equation
+- Forms a straight line on graph
+- Maximum degree of a term is ONE
+- Eg: y = mx + c
+- Slope(m) is constant
+- Has only one variable
+- Output is proportional to input
+- Eating chocolate and gaining weight is linear
+
+
+Non-Linear Equation
+- Forms a curve on graph
+- Maximum degree of a term is > TWO
+- Eg: ax^2 + by^2 = c
+- Varying slope based on the location on the curve  
+- Has only one variable
+- Output and input are not directly related
+- A cancer cell multiplication is not linear  
+
+DL 
+- Adding multiple LT layer/activation function leads to nothing but one added up weight and base matrix
+- Adding multiple NLT layer/activation function helps in creating universal approximate functions(bag of non-linear functions) capturing the real world correlations 
+
+
+
+# References
+- https://stackoverflow.com/questions/9782071/why-must-a-nonlinear-activation-function-be-used-in-a-backpropagation-neural-net
+- https://mathinsight.org/linear_transformation_definition_euclidean
+  
+Affine Transformation
+- AT helps to modify the geometric structure of the image/matrix, preserving parallelism of lines but not the lengths and angles.
+- Operations: Translate, Rotate, Scale, Shear  
+- https://brilliant.org/wiki/affine-transformations/
+- https://medium.com/mlait/affine-transformation-image-processing-in-tensorflow-part-1-df96256928a
