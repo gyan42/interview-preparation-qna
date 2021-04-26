@@ -2,6 +2,7 @@
 
 - Spark Jargons : https://mageswaran1989.medium.com/spark-jargon-for-starters-af1fd8117ada
 - RDD basics: http://homepage.cs.latrobe.edu.au/zhe/ZhenHeSparkRDDAPIExamples.html
+- Check here for SQL reference: https://spark.apache.org/docs/latest/api/sql/index.html
 - What is Spark Job, Stage, Tasks?
 - What is an executor? What are executor cores ? How tasks are scheduled to the executor?
 - Dataset APIs Intro : https://medium.com/swlh/spark-dataset-apis-a-gentle-introduction-108cdeafdea5
@@ -13,7 +14,9 @@
 - What is Sort merge join?
 - What is Data Skew? And how to find it ? how to avoid it?
     - Make sure the data doesn’t have duplicates
+    - No null values on joining column (https://blog.clairvoyantsoft.com/optimize-the-skew-in-spark-e523c6ee18ac)  
     - When joining a small table with a very big table, what care should be taken? How does the partition of tables should be handled?
+    - Key salting (https://itnext.io/handling-data-skew-in-apache-spark-9f56343e58e8)
 - Transformations and Actions in Spark - https://training.databricks.com/visualapi.pdf
 - Catalyst optimizer and project tungsten Ref -> https://www.linkedin.com/pulse/catalyst-tungsten-apache-sparks-speeding-engine-deepak-rajak/?trackingId=Yj2yG1e570tjYD21sR0O9g%3D%3D
 - What is partitioning in Spark?
@@ -24,6 +27,7 @@
     - Shuffle partition : Number of partitions created while doing shuffle exchanges. Default is 200 (spark.sql.shuffle.partition)
     - Range Partition
     - Hash partition
+    - RDD -> `spark.default.parallelism` and DataFrame -> `spark.sql.shuffle.partitions` 
 - What is the difference between Spark partition vs Hive partition?
     - While Spark partition is done to chunk the data for processing by Spark executors, Hive partition is for hierarchical storage of data based on column for fast analysis
 - What is the predictor push down?
@@ -32,6 +36,7 @@
     - More number of Map jobs
     - Less Disk I/O
 - How Executor memory is managed in Spark ?
+    - https://spark.apache.org/docs/latest/configuration.html#memory-management
     - 1.3GB : Input Spark Executor memory
     - 300 MB : Reserved Memory
     - 25 % of (1.3GB - 300MB) = 250MB User memory : To store data objects and data structures 
@@ -40,11 +45,13 @@
         - Execution Memory: Temp memory Eg. Aggregation results
             ![spark_memory.png](images/spark_memory.png)
             ![img.png](images/spark_memory1.png)
-    - Yarn Memory Overhead : 10% of Executor memory
+    - Yarn Memory Overhead : 10% of Executor memory `spark.yarn.executor.memoryOverhead`
     - YM is used to store the runtime class objects and strings
     - High Concurrency
     - When number of cores are greater than 5, the meta data handling will shoot up leaving no memory while processing the data
     - Executor getting Big Partitions due to data skew, which then takes lot of time to process or caching can go wrong
+    - There are situations where each of the above pools of memory, namely execution and storage, may borrow from each other if the other pool is free. Also, storage memory can be evicted to a limit if it has borrowed memory from execution. However, without going into those complexities, we can configure our program such that our cached data which fits in storage memory should not cause a problem for execution.
+    - If we don’t want all our cached data to sit in memory, then we can configure “spark.memory.storageFraction” to a lower value so that extra data would get evicted and execution would not face memory pressure. 
 - How do you optimize a job?
     - Check the input data size and output data size and correlate to operating  cluster memory and adjust the memory accordingly
     - Check Input partition size, output partition size and number of partitions along with shuffle partition and decide number of cores
@@ -87,10 +94,16 @@
     - === returns a column (which contains the result of the comparisons of the elements of two columns)
     - https://stackoverflow.com/questions/39490236/difference-between-and-in-scala-spark
 - What does trigger Spark OOM ?
-    - Driver OOM
-    - Collect operation
-    - Broadcast join: When drivers tries to read the entire table and broadcast to the cluster
-    - Executor OOM
+    - Driver OOM : collect() & broadcast()
+      - Collect operation
+      - Broadcast join: When drivers tries to read the entire table on to driver and broadcast to the cluster
+    - Executor OOM 
+    - Incorrect usage of Spark
+    - High concurrency
+        - Each task read takes 128MB data for each HDFS parition 
+    - Inefficient queries
+    - Incorrect configuration
+    - External shuffle service on node manager
 - What is the difference between partitioning and bucketing ?
     - Both helps in filtering the data while reading by scanning only the necessary files for downstream SQL tasks
     - Partitioningby column is good but multi level partitioning will lead to many small files on cardinal columns
@@ -163,7 +176,20 @@
   ```
   num = sc.accumulator(0) 
   ```
-
+- Common symptoms of excessive GC in Spark are:
+    - Slowness of application
+    - Executor heartbeat timeout
+    - GC overhead limit exceeded error
+- Storing data off-heap: Be careful when using off-heap storage as it does not impact on-heap memory size i.e. 
+  it won’t shrink heap memory. So to define an overall memory limit, assign a smaller heap size.
+    – `conf spark.memory.offHeap.enabled = true`
+    – `conf spark.memory.offHeap.size = Xgb`
+- The SORT BY clause is used to return the result rows sorted within each partition in the user specified order. 
+  When there is more than one partition SORT BY may return result that is partially ordered.
+  Reference :https://spark.apache.org/docs/latest/sql-ref-syntax-qry-select-sortby.html
+  The ORDER BY clause is used to return the result rows in a sorted manner in the user specified order. 
+  Unlike the SORT BY clause, this clause guarantees a total order in the output.
+  Reference : https://spark.apache.org/docs/latest/sql-ref-syntax-qry-select-orderby.html
 
 ## Use cases
 - https://stackoverflow.com/questions/32887595/how-does-spark-achieve-sort-order 
@@ -171,6 +197,7 @@
 - Forward fill @ 
   https://johnpaton.net/posts/forward-fill-spark/
   https://www.jitsejan.com/forward-filling-in-spark.html
+- https://medium.com/agile-lab-engineering/how-to-create-an-apache-spark-3-0-development-cluster-on-a-single-machine-using-docker-964478c3735b
 
 
 

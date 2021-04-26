@@ -41,6 +41,8 @@
   
 - **API Gateway**
     - https://www.nginx.com/
+    - https://www.learnaws.org/2020/09/12/rest-api-vs-http-api/
+    - https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-vs-rest.html
   
 - **API**
   - https://swagger.io/  (https://www.openapis.org/)
@@ -56,6 +58,9 @@
 - **Data Warehousing**
   - Snowflake  
     - https://medium.com/infinity-aka-aseem/experience-with-snowflake-so-far-c2aee047e3f7
+
+- **Data Change Connector**
+  - https://debezium.io
   
 - **Text Search Engine**
   - Elasticsearch
@@ -69,3 +74,5 @@
 # Q> How do you design a system for text auto completion? (something similar to Google auto complete) ?
   - https://towardsdatascience.com/implementing-auto-complete-with-postgres-and-python-e03d34824079
 - http://www.benstopford.com/2015/04/28/elements-of-scale-composing-and-scaling-data-platforms/
+- https://leetcode.com/discuss/interview-question/1140451/helpful-list-of-leetcode-posts-on-system-design-at-facebook-google-amazon-uber-microsoft
+- https://medium.com/swlh/serverless-data-lake-storing-and-analysing-streaming-data-using-aws-60cf3bfe1efd

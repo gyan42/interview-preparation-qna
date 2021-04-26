@@ -7,7 +7,7 @@ num_vertices = int(input_data[0])
 for i in range(1, num_vertices+1):
   u,v,w = input_data[i].split()
   graph[u][v] = w
-  # graph[v][u] = w
+  graph[v][u] = w
 
 if __name__ == "__main__":
     print(graph)
