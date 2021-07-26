@@ -30,8 +30,6 @@ class TreeNode:
                     self.right.insert(data=data)
 
 
-
-
 def size(root: TreeNode):
     if root is None:
         return 0
@@ -51,6 +49,7 @@ def max_binary_search_tree(root: TreeNode):
         current = current.right
     return maxVal
 
+
 def max_bt(root: TreeNode):
     if root is None:
         return float('-inf')
@@ -64,3 +63,54 @@ def max_bt(root: TreeNode):
     if right_max > res:
         res = right_max
     return res
+
+def second_largest_number(root, is_left=False):
+    # case 1: no right child
+    if root.right is None:
+        return second_largest_number(root.left, is_left=True)
+
+    res = None
+    curr_max = root.data
+    prev_max = -1
+    current = root
+    while (current):
+        current = current.right
+        if current:
+            prev_max = curr_max
+            curr_max = current.data
+    if is_left:
+        res = curr_max
+    else:
+        res = prev_max
+    return res
+
+def inorder(root):
+    if root:
+        inorder(root.left)
+        print(root.data, end=" ")
+        inorder(root.right)
+
+tree = TreeNode(data=5)
+tree.insert(10)
+
+tree.insert(1)
+tree.insert(2)
+tree.insert(3)
+tree.insert(4)
+tree.insert(6)
+tree.insert(7)
+tree.insert(10)
+
+tree.insert(8)
+tree.insert(9)
+tree.insert(11)
+tree.insert(12)
+
+
+# print(max_bt(tree))
+
+# print(max_binary_search_tree(tree))
+
+print(second_largest_number(tree))
+
+# inorder(tree)

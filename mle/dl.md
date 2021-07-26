@@ -24,9 +24,12 @@
         - Sigmoid (0,1)
         - Tanh (-1,1)
         - Softmax [0,1) probabilities sums to 1
-    - Discree
+    - Discreet
         - Step
         - Relu and family [0, inf)
+          - Less computation
+          - Dying cells, leaky relu is used to overcome this  
+          - No vanishing gradient but can blow up gradient
 - What Is the Cost/Loss/Error Function?
     - Measure teh diff between predicted and actual value
 -  What Do You Understand by Backpropagation?

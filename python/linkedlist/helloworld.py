@@ -18,11 +18,9 @@ class LinkedList:
         first = self.head
         second = self.head
         for i in range(n):
-
             # If count of nodes in the
             # given list is less than 'n'
             if (second.next == None):
-
                 # If index = n then
                 # delete the head node
                 if (i == n - 1):
