@@ -5,6 +5,7 @@ print(f"Permuation of {s} is")
 for p in permutations(s):
     print(p, end=" ")
 print()
+# ('A', 'B', 'C') ('A', 'C', 'B') ('B', 'A', 'C') ('B', 'C', 'A') ('C', 'A', 'B') ('C', 'B', 'A')
 
 s = "ABC"
 print(f"Combination of {s} is")
@@ -12,6 +13,7 @@ for i in range(len(s)+1):
     for c in combinations(s,i):
         print(c, end=" ")
 print(" ")
+# () ('A',) ('B',) ('C',) ('A', 'B') ('A', 'C') ('B', 'C') ('A', 'B', 'C')
 
 #-----------------------------------------------------------------------------------------------------------------------
 

@@ -9,8 +9,8 @@ def fib(n):
 # print(fib(40)) # O(2^N)
 # print("Time took: ", time.time() - s) #Time took:  30.00671100616455
 
-def fib_top_down(n ,cache):
-    if cache[n] != None:
+def fib_top_down(n, cache):
+    if cache[n] is not None:
         return cache[n]
     if n <= 1:
         return n

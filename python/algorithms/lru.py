@@ -10,7 +10,7 @@ class LRUV1(object):
 
     def get(self, key):
         if key not in self._cache.keys():
-            return -1
+            return False
         else:
             self._cache.move_to_end(key, last=True) # move the recently used data to tail
             return self._cache[key]

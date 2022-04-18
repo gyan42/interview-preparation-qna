@@ -8,3 +8,7 @@
 - One-hot encoding
 - Count vectorizer  
 - We can use perplexity to evaluate the quality of language models.
+
+## LDA 
+https://towardsdatascience.com/evaluate-topic-model-in-python-latent-dirichlet-allocation-lda-7d57484bb5d0
+https://www.machinelearningplus.com/nlp/topic-modeling-gensim-python/
